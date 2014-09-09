@@ -19,8 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `refugio`
 --
-CREATE DATABASE IF NOT EXISTS `refugio` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `refugio`;
+CREATE DATABASE IF NOT EXISTS `ElSalvador` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `ElSalvador`;
 
 -- --------------------------------------------------------
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `dep_departamento` (
   `dep_id` int(11) NOT NULL COMMENT 'ID del departamento',
   `dep_nombre` varchar(30) NOT NULL COMMENT 'Nombre del departamento',
   PRIMARY KEY (`dep_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Departamento de donde pertenece el refugio';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Departamento del pais El Salvador';
 
 --
 -- Dumping data for table `dep_departamento`
@@ -65,10 +65,10 @@ DROP TABLE IF EXISTS `mun_municipio`;
 CREATE TABLE IF NOT EXISTS `mun_municipio` (
   `mun_id` int(11) NOT NULL COMMENT 'ID del municipio',
   `mun_nombre` varchar(60) NOT NULL COMMENT 'Nombre del municipio',
-  `dep_mun_id` int(11) NOT NULL,
+  `dep_mun_id` int(11) NOT NULL COMMENT 'Departamento del municipio',
   PRIMARY KEY (`mun_id`,`dep_mun_id`),
   KEY `fk_mun_municipio_dep_departamento1_idx` (`dep_mun_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Municipios en los que se encuentra el refugio';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Municipios de El Salvador';
 
 --
 -- Dumping data for table `mun_municipio`
@@ -338,76 +338,11 @@ INSERT INTO `mun_municipio` (`mun_id`, `mun_nombre`, `dep_mun_id`) VALUES
 (261, 'Tepetitán', 10),
 (262, 'Verapaz', 10);
 
--- --------------------------------------------------------
 
---
--- Table structure for table `rol_rol`
---
-
-DROP TABLE IF EXISTS `rol_rol`;
-CREATE TABLE IF NOT EXISTS `rol_rol` (
-  `rol_id` int(11) NOT NULL COMMENT 'ID de los roles',
-  `rol_nombre` varchar(20) NOT NULL COMMENT 'Nombre del rol',
-  `rol_descripcion` varchar(60) DEFAULT NULL COMMENT 'Descripcion del rol ingresado',
-  PRIMARY KEY (`rol_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Roles de los usuarios a ingresar al sitio';
-
---
--- Dumping data for table `rol_rol`
---
-
-INSERT INTO `rol_rol` (`rol_id`, `rol_nombre`, `rol_descripcion`) VALUES
-(1, 'admin', 'Administrador del sistema y del sitio'),
-(2, 'user', 'Usuario con privilegios limitados'),
-(3, 'refugio', 'Usuario encargado de actualizar los datos de su refugio');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `usr_usuario`
---
-
-DROP TABLE IF EXISTS `usr_usuario`;
-CREATE TABLE IF NOT EXISTS `usr_usuario` (
-  `usr_id` int(11) NOT NULL COMMENT 'ID del usuario',
-  `usr_usuarios` varchar(30) NOT NULL COMMENT 'Username de acceso al sitio',
-  `usr_nombre1` varchar(20) NOT NULL COMMENT '1er nombre real del usuario',
-  `usr_nombre2` varchar(20) DEFAULT NULL COMMENT '2o nombre real del usuario',
-  `usr_apellido1` varchar(20) NOT NULL COMMENT '1er apellido real del usuario',
-  `usr_apellido2` varchar(20) DEFAULT NULL COMMENT '2o apellido real del usuario',
-  `usr_rol_id` int(11) NOT NULL COMMENT 'Llave foranea',
-  `usr_passwd` varchar(100) NOT NULL COMMENT 'Contraseña de acceso al sitio',
-  PRIMARY KEY (`usr_id`,`usr_rol_id`),
-  KEY `fk_usr_usuario_rol_rol_idx` (`usr_rol_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Datos de usuario del sitio';
-
---
--- Dumping data for table `usr_usuario`
---
-
-INSERT INTO `usr_usuario` (`usr_id`, `usr_usuarios`, `usr_nombre1`, `usr_nombre2`, `usr_apellido1`, `usr_apellido2`, `usr_rol_id`, `usr_passwd`) VALUES
-(1, 'admin', 'administrador', NULL, 'administrador', NULL, 1, '91f5167c34c400758115c2a6826ec2e3'),
-(2, 'santiago', 'Jose', 'Santiago', 'Burgos', 'Mejia', 1, '6f7dacfa89953d0fa5070d3dcfad7296'),
-(3, 'ale', 'Alejandra', 'Iveth', 'Melendez', 'Morales', 1, '3fc13eed225435fabc994b5405745616'),
-(4, 'rodrigo', 'Rodrigo', 'Jose', 'Rodriguez', NULL, 2, 'c2a013f258b73d918432126466588154'),
-(5, 'soriano', 'Carlos', 'Rodolfo', 'Soriano', 'Lopez', 3, '328d753896480cf12f08c0f7e536ce3b'),
-(6, 'carmen.morales', 'Carmen', 'Celia', 'Morales', 'Samayoa', 3, '80de52a87aa77f3c3f37222458713da4');
-
---
--- Constraints for dumped tables
---
-
---
 -- Constraints for table `mun_municipio`
 --
 ALTER TABLE `mun_municipio`
   ADD CONSTRAINT `fk_mun_municipio_dep_departamento1` FOREIGN KEY (`dep_mun_id`) REFERENCES `dep_departamento` (`dep_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `usr_usuario`
---
-ALTER TABLE `usr_usuario`
-  ADD CONSTRAINT `fk_usr_rol_id` FOREIGN KEY (`usr_rol_id`) REFERENCES `rol_rol` (`rol_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
