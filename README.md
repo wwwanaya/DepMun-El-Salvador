@@ -8,7 +8,7 @@ Se subirá un archivo SQL para la mayoría de base de datos existentes, si algui
 * MariaDB/MySQL (DepMun_ES.sql)
 * SQL Server 2008 and upper
 * Oracle
-* MS Access 2010 and upper
+* MS Access 2010 and upper (DepMun_ES.accdb)
 * Libreoffice Base (DepMun_ES.odb)
 
 Este proyecto es colocado bajo Licencia GPL v3, para mayor información revisar archivo "License.md" 
