@@ -6,7 +6,7 @@ Este repositorio consiste en la información de los municipios y departamentos d
 Se subirá un archivo SQL para la mayoría de base de datos existentes, si alguien desea adaptarlo para alguna base en particular puede forkear este repositorio y colocarlo dentro de la base existente para obtener mayor información, los objetivos principales son los siguientes:
 
 * MariaDB/MySQL (DepMun_ES.sql)
-* SQL Server 2008 and upper
+* SQL Server 2008 and upper (DepMun_ES1.sql)
 * Oracle
 * MS Access 2010 and upper (DepMun_ES.accdb)
 * Libreoffice Base (DepMun_ES.odb)
